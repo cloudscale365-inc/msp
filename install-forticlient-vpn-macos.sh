@@ -23,11 +23,24 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "Looking for installer package..."
-PKG_PATH=$(find "$MOUNT_POINT" -name "*.pkg" -type f | head -n 1)
+echo "Looking for fctupdate installer..."
+# Wait for fctupdate to appear (max 90 seconds)
+RETRIES=0
+MAX_RETRIES=18
+SLEEP_INTERVAL=5
+
+while [[ $RETRIES -lt $MAX_RETRIES ]]; do
+  PKG_PATH=$(find /System/Volumes/Data/private -name Install.mpkg 2>/dev/null | grep fctupdate | head -n 1)
+  if [[ -n "$PKG_PATH" ]]; then
+    echo "Found installer package: $PKG_PATH"
+    break
+  fi
+  sleep $SLEEP_INTERVAL
+  ((RETRIES++))
+done
 
 if [ -z "$PKG_PATH" ]; then
-  echo "No installer package found in $MOUNT_POINT. Exiting."
+  echo "No installer package found. Exiting."
   hdiutil detach "$MOUNT_POINT" -quiet
   rm -f "$DMG_NAME"
   exit 1
