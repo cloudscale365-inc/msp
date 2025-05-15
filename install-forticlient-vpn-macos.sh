@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# CloudScale365 FortiClient Installer for macOS
+# Lucidity x CloudScale365 FortiClient Installer for macOS
 
 DMG_NAME="FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
 MOUNT_POINT="/Volumes/FortiClientVPN"
