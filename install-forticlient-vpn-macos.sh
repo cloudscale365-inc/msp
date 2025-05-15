@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Mounting DMG..."
-hdiutil attach "$DMG_NAME" -mountpoint "$MOUNT_POINT" -quiet
+hdiutil attach "$DOWNLOAD_DIR/$DMG_NAME"
 if [ $? -ne 0 ]; then
   echo "Failed to mount DMG."
   exit 1
