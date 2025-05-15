@@ -2,21 +2,22 @@
 
 set -e
 
-APP_NAME="FortiClient VPN"
-DMG_NAME="FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
-DOWNLOAD_URL="https://github.com/cloudscale365-inc/msp/releases/download/v1.0.0/FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
+FORTICLIENT_URL="https://github.com/cloudscale365-inc/msp/releases/download/v1.0.0/FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
+DMG_NAME="FortiClientVPN_Installer.dmg"
+MOUNT_POINT="/Volumes/FortiClientVPN"
+PKG_NAME="FortiClientUpdate.pkg"
 
-echo "[*] Downloading $APP_NAME installer..."
-curl -L "$DOWNLOAD_URL" -o "$DMG_NAME"
+echo "[*] Downloading FortiClient VPN installer..."
+curl -L -o "$DMG_NAME" "$FORTICLIENT_URL"
 
 echo "[*] Mounting DMG..."
-MOUNT_DIR=$(hdiutil attach "$DMG_NAME" | grep Volumes | awk '{print $3}')
+hdiutil attach "$DMG_NAME" -nobrowse -quiet
 
-echo "[*] Installing $APP_NAME..."
-sudo installer -pkg "$MOUNT_DIR/FortiClientUpdate.pkg" -target /
+echo "[*] Installing FortiClient VPN..."
+sudo installer -pkg "$MOUNT_POINT/$PKG_NAME" -target /
 
 echo "[*] Unmounting and cleaning up..."
-hdiutil detach "$MOUNT_DIR"
-rm "$DMG_NAME"
+hdiutil detach "$MOUNT_POINT" -quiet
+rm -f "$DMG_NAME"
 
-echo "[✓] $APP_NAME installation complete."
+echo "[✓] FortiClient VPN installation complete."
