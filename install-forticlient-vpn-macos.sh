@@ -4,7 +4,7 @@
 
 DMG_NAME="FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
 DOWNLOAD_DIR="$HOME/Downloads"
-MOUNT_POINT="/Volumes/FortiClientInstaller"
+MOUNT_POINT="$DOWNLOAD_DIR/$DMG_NAME"
 DOWNLOAD_URL="https://github.com/cloudscale365-inc/msp/releases/download/v1.0.0/$DMG_NAME"
 
 cd "$DOWNLOAD_DIR" || exit 1
