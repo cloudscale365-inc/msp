@@ -1,23 +1,36 @@
 #!/bin/bash
 
-set -euo pipefail
+# Lucidity x CloudScale365 FortiClient Installer
+# macOS-compatible shell script for non-technical users
 
-# Define variables
-DMG_URL="https://github.com/cloudscale365-inc/msp/releases/download/v1.0.0/FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
+# DMG file info
 DMG_NAME="FortiClientVPN_7.4.3.1761_OnlineInstaller.dmg"
 MOUNT_POINT="/Volumes/FortiClientVPN"
+DOWNLOAD_URL="https://github.com/cloudscale365-inc/msp/releases/download/v1.0.0/$DMG_NAME"
 
 echo "[*] Downloading FortiClient VPN installer..."
-curl -L -o "$DMG_NAME" "$DMG_URL"
+curl -L -o "$DMG_NAME" "$DOWNLOAD_URL"
 
-echo "[*] Mounting DMG..."
+if [ $? -ne 0 ]; then
+  echo "[✗] Download failed. Check your network or the URL."
+  exit 1
+fi
+
+echo "[*] Mounting the DMG..."
 hdiutil attach "$DMG_NAME" -mountpoint "$MOUNT_POINT" -quiet
+
+if [ $? -ne 0 ]; then
+  echo "[✗] Failed to mount DMG."
+  exit 1
+fi
 
 echo "[*] Installing FortiClient VPN..."
 sudo installer -pkg "$MOUNT_POINT/FortiClientUpdate.pkg" -target /
 
-echo "[*] Unmounting and cleaning up..."
+echo "[*] Unmounting DMG..."
 hdiutil detach "$MOUNT_POINT" -quiet
+
+echo "[*] Cleaning up installer..."
 rm -f "$DMG_NAME"
 
-echo "[✓] FortiClient VPN installation complete."
+echo "[✓] FortiClient VPN installation complete!"
