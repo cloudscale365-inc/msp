@@ -1,4 +1,3 @@
-README.md
 Overview
 Welcome to the Customer Device Management Tools repository! This repository contains essential install scripts, files, and guideline documents to help you install the necessary tools for monitoring or managing customer devices that cannot be accessed remotely.
 
