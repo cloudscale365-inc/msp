@@ -1,75 +1,34 @@
-# Customer Onboarding Workflow Application
+README.md
+Overview
+Welcome to the Customer Device Management Tools repository! This repository contains essential install scripts, files, and guideline documents to help you install the necessary tools for monitoring or managing customer devices that cannot be accessed remotely.
 
-A comprehensive Windows Forms application for efficiently and consistently onboarding customers after receiving their signed contracts.
+Contents
+Install Scripts: Automated scripts to streamline the installation process of various monitoring and management tools.
+Files: Configuration files and other resources required for the tools.
+Guideline Docs: Step-by-step instructions and best practices for setting up and using the tools effectively.
+Getting Started
+To get started with the installation, follow these steps:
 
-## Features
+Clone the Repository:
 
-- **Customer Information Management**: Capture and store customer details including company name, address, contact information
-- **Service-Specific Forms**:
-  - **Office365**: Track existing licenses, credentials, migration requirements
-  - **Network Monitoring**: Document access methods, discovery results, vulnerability assessments
-  - **Server Management**: Inventory servers, configure monitoring, document security assessments
-  - **SaaS/Cloud Monitoring**: Track applications, cloud services, configure monitoring and alerting
-  - **Hosting**: Manage website/database details, DNS, SSL, backup and monitoring configurations
-- **Reporting**: Generate comprehensive onboarding reports with export capabilities
 
-## Requirements
+Review the Guidelines:
 
-- Windows 10 or later
-- .NET 6.0 SDK or later
-- Visual Studio 2022 or later (for development)
+Navigate to the docs folder and review the guideline documents to understand the installation process and requirements.
+Run Install Scripts:
 
-## Installation
+Execute the install scripts located in the scripts folder. Ensure you have the necessary permissions to run these scripts.
 
-### Option 1: Using the Installer
+Configure Tools:
 
-1. Download the latest release from the `Releases` folder
-2. Run the installer (`CustomerOnboardingWorkflow-Setup.exe`)
-3. Follow the installation wizard instructions
+Use the configuration files provided in the config folder to set up the tools according to your needs.
+Support
+If you encounter any issues or have questions, please refer to the guideline documents in the docs folder. For further assistance, feel free to open an issue on this repository.
 
-### Option 2: Building from Source
+Contributing
+We welcome contributions! If you have suggestions for improvements or new features, please fork the repository and submit a pull request.
 
-1. Clone this repository
-2. Open the solution in Visual Studio
-3. Build the solution (Build > Build Solution or F6)
-4. Run the application (Debug > Start Debugging or F5)
+License
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
-## Usage
-
-1. Launch the application
-2. From the main dashboard, click "New Customer" to begin the onboarding process
-3. Fill in the customer's basic information
-4. Select the services included in the customer's contract
-5. Complete the service-specific forms for each selected service
-6. Generate and save the onboarding report
-7. Access customer records from the dashboard for future reference or updates
-
-## Building the Release Package
-
-To build a release package for distribution:
-
-1. Open a command prompt in the project root directory
-2. Run `build-release.bat`
-3. The packaged application will be created in the `Releases` folder
-
-## Source Code Repository
-
-The source code for this application is hosted on GitHub:
-https://github.com/cloudscale365-inc/msp
-
-### Getting the Latest Code
-
-To get the latest code from the repository:
-
-1. Open a command prompt in the project root directory
-2. Run `update-app.bat`
-3. Follow the prompts to update the application
-
-## Data Storage
-
-Customer data is stored locally in a SQLite database in the application's data directory:
-- `%APPDATA%\CustomerOnboardingWorkflow\data.db`
-
-## Support
-
-For support, please contact the IT department.
+Thank you for using the Customer Device Management Tools repository! We hope these tools make managing your customer devices easier and more efficient.
