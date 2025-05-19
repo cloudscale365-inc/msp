@@ -20,7 +20,7 @@ Ready to roll? Follow these simple steps:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/your-username/customer-device-management-tools.git](https://github.com/your-username/customer-device-management-tools.git)
+    git clone [https://github.com/cloudscale365-inc/customer-device-management-tools.git](https://github.com/cloudscale365-inc/customer-device-management-tools.git)
     ```
     ➡️ Navigate into the cloned directory.
 
