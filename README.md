@@ -20,14 +20,14 @@ Ready to roll? Follow these simple steps:
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/cloudscale365-inc/customer-device-management-tools.git](https://github.com/cloudscale365-inc/customer-device-management-tools.git)
+    git clone [https://github.com/cloudscale365-inc/msp.git](https://github.com/cloudscale365-inc/msp.git)
     ```
     ➡️ Navigate into the cloned directory.
 
 2.  **Review the Guidelines:**
     Go straight to the source!
     ```bash
-    cd customer-device-management-tools/docs
+    cd msp/docs
     ```
     Read through the guideline documents (e.g., `INSTALLATION_GUIDE.md`) to fully grasp the process and requirements. It's worth it, trust! 😉
 
