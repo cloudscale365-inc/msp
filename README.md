@@ -1,6 +1,6 @@
 # Welcome to the Customer Device Management Tools! 👋🔧
 
-![Cloudscale365 Logo](https://cloudscale365.com/wp-content/uploads/cs365-logo.png)
+![Cloudscale365 Logo](https://cloudscale365.com/wp-content/uploads/2024/11/cs365-logo.svg)
 
 ## Overview ✨
 
@@ -76,3 +76,4 @@ Thank you for checking out and using the Customer Device Management Tools reposi
 
 **Author:** Cloudscale365 Engineering Team ☁️⚙️
 **Company:** Cloudscale365
+
