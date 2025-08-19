@@ -24,25 +24,9 @@ Ready to roll? Follow these simple steps:
     ```
     ➡️ Navigate into the cloned directory.
 
-2.  **Review the Guidelines:**
-    Go straight to the source!
+2.  **Run the Install Script:**
     ```bash
-    cd msp/docs
-    ```
-    Read through the guideline documents (e.g., `INSTALLATION_GUIDE.md`) to fully grasp the process and requirements. It's worth it, trust! 😉
-
-3.  **Run Install Scripts:**
-    Head over to the scripts and execute!
-    ```bash
-    cd ../scripts
-    ```
-    Run the relevant install scripts. **🚨 IMPORTANT:** Make sure you have the necessary permissions before running them!
-
-4.  **Configure Tools:**
-    Customize your setup!
-    ```bash
-    cd ../config
-    ```
+    .\InstallerBundle.ps1 -HuntressAccountKey "your_account_key" -HuntressOrgKey "your_org_key" -SentinelOneSiteToken "your_site_token"
     Use the provided configuration files to set up the tools exactly how you need them. ⚙️
 
 ---
@@ -51,7 +35,7 @@ Ready to roll? Follow these simple steps:
 
 Stuck or hit a snag? No worries!
 
-* First, consult the comprehensive guideline documents in the `docs` folder – they likely have the answers you need.
+* First, consult the comprehensive guideline in the `README.md` file – it likely have the answers you need.
 * If you're still scratching your head, feel free to **open an issue** 📬 on this repository. We're here to help!
 
 ## Contributing 🙏
@@ -76,4 +60,3 @@ Thank you for checking out and using the Customer Device Management Tools reposi
 
 **Author:** Cloudscale365 Engineering Team ☁️⚙️
 **Company:** Cloudscale365
-
