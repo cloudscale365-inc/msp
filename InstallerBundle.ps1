@@ -1,10 +1,26 @@
+
 Param(
     [string]$HuntressAccountKey,
-    [string]$HuntressOrgKey,
     [string]$SentinelOneSiteToken
 )
 
+function PromptIfMissing {
+    param (
+        [string]$paramName,
+        [string]$currentValue
+    )
+    if (-not $currentValue) {
+        Write-Host "$paramName is missing. Please enter a value:"
+        return Read-Host "$paramName"
+    }
+    return $currentValue
+}
+
 Write-Host "Starting installer bundle..."
+
+# Prompt for missing parameters
+$HuntressAccountKey = PromptIfMissing -paramName "HuntressAccountKey" -currentValue $HuntressAccountKey
+$SentinelOneSiteToken = PromptIfMissing -paramName "SentinelOneSiteToken" -currentValue $SentinelOneSiteToken
 
 # Datto RMM Installer
 try {
@@ -19,13 +35,10 @@ try {
 
 # Huntress Installer
 try {
-    if (-not $HuntressAccountKey -or -not $HuntressOrgKey) {
-        throw "Huntress AccountKey and OrgKey are required."
-    }
     Write-Host "Downloading Huntress Installer..."
     $HuntressPath = "$env:TEMP\HuntressInstaller.exe"
     (New-Object System.Net.WebClient).DownloadFile("https://huntress.io/download/$HuntressAccountKey", $HuntressPath)
-    Start-Process -FilePath $HuntressPath -ArgumentList "/S /ACCT_KEY=$HuntressAccountKey /ORG_KEY=$HuntressOrgKey" -Wait -NoNewWindow
+    Start-Process -FilePath $HuntressPath -ArgumentList "/S /ACCT_KEY=$HuntressAccountKey" -Wait -NoNewWindow
     Write-Host "Huntress installed successfully."
 } catch {
     Write-Error "Huntress installation failed: $($_.Exception.Message)"
@@ -33,9 +46,6 @@ try {
 
 # SentinelOne Installer
 try {
-    if (-not $SentinelOneSiteToken) {
-        throw "SentinelOne SiteToken is required."
-    }
     Write-Host "Downloading SentinelOne Installer..."
     $S1Path = "$env:TEMP\SentinelInstaller.msi"
     Invoke-WebRequest -Uri "https://exchangemymail-my.sharepoint.com/:u:/g/personal/amairura_cloudscale365_com/EZ48S1QCvF9MlVoWmKtVcFoBhC6Z27O0z_SSAKljPdEejw?e=h1Pzch" -OutFile $S1Path
