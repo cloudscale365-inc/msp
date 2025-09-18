@@ -26,8 +26,8 @@ Ready to roll? Follow these simple steps:
 
 2.  **Run the Install Script:**
     ```bash
-    .\InstallerBundle.ps1 -HuntressAccountKey "your_account_key" -HuntressOrgKey "your_org_key" -SentinelOneSiteToken "your_site_token"
-    Use the provided configuration files to set up the tools exactly how you need them. ⚙️
+    .\InstallerBundle.ps1 -HuntressAccountKey "your_account_key" -SentinelOneSiteToken "your_site_token"
+    # Use the provided configuration files to set up the tools exactly how you need them. ⚙️
 
 ---
 
@@ -35,7 +35,7 @@ Ready to roll? Follow these simple steps:
 
 Stuck or hit a snag? No worries!
 
-* First, consult the comprehensive guideline in the `README.md` file – it likely have the answers you need.
+* First, consult the comprehensive guideline in the `README.md` file – it likely has the answers you need.
 * If you're still scratching your head, feel free to **open an issue** 📬 on this repository. We're here to help!
 
 ## Contributing 🙏
@@ -60,3 +60,4 @@ Thank you for checking out and using the Customer Device Management Tools reposi
 
 **Author:** Cloudscale365 Engineering Team ☁️⚙️
 **Company:** Cloudscale365
+
