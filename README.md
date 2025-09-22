@@ -26,7 +26,7 @@ Ready to roll? Follow these simple steps:
 
 2.  **Run the Install Script:**
     ```bash
-    irm https://raw.githubusercontent.com/cloudscale365-inc/msp/main/InstallerBundle.ps1 | iex
+   irm https://raw.githubusercontent.com/cloudscale365-inc/msp/refs/heads/main/InstallerBundle.ps1 | iex
     # .\InstallerBundle.ps1 -HuntressAccountKey "your_account_key" -SentinelOneSiteToken "your_site_token"
     # Use the provided configuration files to set up the tools exactly how you need them. ⚙️
 
@@ -61,5 +61,6 @@ Thank you for checking out and using the Customer Device Management Tools reposi
 
 **Author:** Cloudscale365 Engineering Team ☁️⚙️
 **Company:** Cloudscale365
+
 
 
