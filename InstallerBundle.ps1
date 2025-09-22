@@ -34,13 +34,12 @@ $SentinelOneSiteToken = PromptIfMissing -paramName "SentinelOneSiteToken" -curre
 try {
     Write-Host "Downloading Datto RMM Agent..."
     $DattoPath = "$env:TEMP\AgentInstall.exe"
-    $DattoLog = "$env:TEMP\DattoInstall.log"
     (New-Object System.Net.WebClient).DownloadFile("https://concord.rmm.datto.com/download-agent/windows/34124687-895c-46c9-85d0-a276a08082fe", $DattoPath)
-    $process = Start-Process -FilePath $DattoPath -Wait -PassThru -RedirectStandardOutput $DattoLog -RedirectStandardError $DattoLog
+    $process = Start-Process -FilePath $DattoPath -Wait -PassThru
     if ($process.ExitCode -eq 0) {
         Write-Host "Datto RMM Agent installed successfully."
     } else {
-        Write-Error "Datto RMM installation failed with exit code $($process.ExitCode). Check log at $DattoLog."
+        Write-Error "Datto RMM installation failed with exit code $($process.ExitCode)."
     }
 } catch {
     Write-Error "Datto RMM installation failed: $($_.Exception.Message)"
@@ -50,13 +49,12 @@ try {
 try {
     Write-Host "Downloading Huntress Installer..."
     $HuntressPath = "$env:TEMP\HuntressInstaller.exe"
-    $HuntressLog = "$env:TEMP\HuntressInstall.log"
     (New-Object System.Net.WebClient).DownloadFile("https://huntress.io/download/$HuntressAccountKey", $HuntressPath)
-    $process = Start-Process -FilePath $HuntressPath -ArgumentList "/S /ACCT_KEY=$HuntressAccountKey" -Wait -NoNewWindow -PassThru -RedirectStandardOutput $HuntressLog -RedirectStandardError $HuntressLog
+    $process = Start-Process -FilePath $HuntressPath -ArgumentList "/S /ACCT_KEY=$HuntressAccountKey" -Wait -NoNewWindow -PassThru
     if ($process.ExitCode -eq 0) {
         Write-Host "Huntress installed successfully."
     } else {
-        Write-Error "Huntress installation failed with exit code $($process.ExitCode). Check log at $HuntressLog."
+        Write-Error "Huntress installation failed with exit code $($process.ExitCode)."
     }
 } catch {
     Write-Error "Huntress installation failed: $($_.Exception.Message)"
