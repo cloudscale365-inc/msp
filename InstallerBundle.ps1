@@ -3,7 +3,6 @@ Param(
     [string]$SentinelOneSiteToken
 )
 
-# Logging setup
 $LogPath = "$env:TEMP\InstallLog.txt"
 Start-Transcript -Path $LogPath -Append
 
@@ -53,19 +52,19 @@ Ensure-Admin
 
 Write-Host "Starting installer bundle..."
 
-# Prompt for missing parameters
 $HuntressAccountKey = PromptIfMissing -paramName "HuntressAccountKey" -currentValue $HuntressAccountKey
 $SentinelOneSiteToken = PromptIfMissing -paramName "SentinelOneSiteToken" -currentValue $SentinelOneSiteToken
-# Datto RMM Installer
+
+# Datto RMM
 $DattoPath = "$env:TEMP\AgentInstall.exe"
 if (Download-With-Retry -url "https://concord.rmm.datto.com/download-agent/windows/34124687-895c-46c9-85d0-a276a08082fe" -destination $DattoPath) {
     try {
         $process = Start-Process -FilePath $DattoPath -Wait -NoNewWindow -PassThru
         if ($process.ExitCode -eq 0) {
             Write-Host "Datto RMM Agent installed successfully."
-            # Check for Datto service
-            if (Get-Service -Name "AEMAgent" -ErrorAction SilentlyContinue) {
-                Write-Host "Datto RMM service is running."
+            $dattoService = Get-Service | Where-Object { $_.DisplayName -like "*Datto*" }
+            if ($dattoService) {
+                Write-Host "Datto RMM service '$($dattoService.Name)' is running."
             } else {
                 Write-Warning "Datto RMM service not found."
             }
@@ -77,7 +76,7 @@ if (Download-With-Retry -url "https://concord.rmm.datto.com/download-agent/windo
     }
 }
 
-# Huntress Installer
+# Huntress
 $HuntressPath = "$env:TEMP\HuntressInstaller.exe"
 $HuntressURL = "https://huntress.io/download/$HuntressAccountKey"
 if (Download-With-Retry -url $HuntressURL -destination $HuntressPath) {
@@ -85,7 +84,6 @@ if (Download-With-Retry -url $HuntressURL -destination $HuntressPath) {
         $process = Start-Process -FilePath $HuntressPath -ArgumentList "/S /ACCT_KEY=$HuntressAccountKey" -Wait -NoNewWindow -PassThru
         if ($process.ExitCode -eq 0) {
             Write-Host "Huntress installed successfully."
-            # Check registry key
             if (Test-Path "HKLM:\Software\Huntress Labs") {
                 Write-Host "Huntress registry key found."
             } else {
@@ -99,28 +97,32 @@ if (Download-With-Retry -url $HuntressURL -destination $HuntressPath) {
     }
 }
 
-# SentinelOne Installer
+# SentinelOne
 $S1Path = "$env:TEMP\SentinelInstaller.msi"
 $S1Log = "$env:TEMP\SentinelOneInstall.log"
-$S1URL = "https://exchangemymail-my.sharepoint.com/:u:/g/personal/amairura_cloudscale365_com/EZ48S1QCvF9MlVoWmKtVcFoBhC6Z27O0z_SSAKljPdEejw?e=h1Pzch"
+$S1URL = "https://exchangemymail-my.sharepoint.com/:u:/r/personal/amairura_cloudscale365_com/Documents/SysAdmin/Projects/CS365/Networking/SentinelInstaller_windows_64bit_v24_1_5_277.msi?csf=1&web=1&e=EnSYes"
 
 if (Download-With-Retry -url $S1URL -destination $S1Path) {
-    try {
-        $arguments = "/i `"$S1Path`" /qn SITE_TOKEN=`"$SentinelOneSiteToken`" WSC=false /l*v `"$S1Log`""
-        $process = Start-Process -FilePath "msiexec.exe" -ArgumentList $arguments -Wait -PassThru
-        if ($process.ExitCode -eq 0) {
-            Write-Host "SentinelOne installed successfully."
-            # Check for SentinelOne service
-            if (Get-Service -Name "SentinelAgent" -ErrorAction SilentlyContinue) {
-                Write-Host "SentinelOne service is running."
+    if ((Get-Item $S1Path).Length -lt 100kb) {
+        Write-Error "SentinelOne MSI appears to be corrupted or incomplete. Aborting install."
+    } else {
+        try {
+            $arguments = "/i `"$S1Path`" /qn SITE_TOKEN=`"$SentinelOneSiteToken`" WSC=false /l*v `"$S1Log`""
+            $process = Start-Process -FilePath "msiexec.exe" -ArgumentList $arguments -Wait -PassThru
+            if ($process.ExitCode -eq 0) {
+                Write-Host "SentinelOne installed successfully."
+                $s1Service = Get-Service -Name "SentinelAgent" -ErrorAction SilentlyContinue
+                if ($s1Service) {
+                    Write-Host "SentinelOne service is running."
+                } else {
+                    Write-Warning "SentinelOne service not found."
+                }
             } else {
-                Write-Warning "SentinelOne service not found."
+                Write-Error "SentinelOne installation failed with exit code $($process.ExitCode). Check log at $S1Log."
             }
-        } else {
-            Write-Error "SentinelOne installation failed with exit code $($process.ExitCode). Check log at $S1Log."
+        } catch {
+            Write-Error "SentinelOne installation failed: $($_.Exception.Message)"
         }
-    } catch {
-        Write-Error "SentinelOne installation failed: $($_.Exception.Message)"
     }
 }
 
